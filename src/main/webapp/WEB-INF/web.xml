@@ -4,7 +4,6 @@
 
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          id="WebApp_ID" version="3.0">
@@ -34,6 +33,25 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
         <url-pattern>/simple</url-pattern>
     </servlet-mapping>
 
+    <!--Snake game-->
+
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>Snake.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>player</servlet-name>
+        <servlet-class>Snake.PlayerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>player</servlet-name>
+        <url-pattern>/player</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>com.epam.webbasics.ContextListener</listener-class>
     </listener>
@@ -45,6 +63,17 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/simple</url-pattern>
         <url-pattern>/index.jsp</url-pattern>
+        <url-pattern>/admin</url-pattern>
+        <url-pattern>/player</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>Snake.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin</url-pattern>
     </filter-mapping>
 
     <!--<filter>-->

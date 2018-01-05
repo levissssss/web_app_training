@@ -1,22 +1,37 @@
 package com.epam.webbasics;
 
+import Snake.Games;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Collections;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 public class ContextListener implements ServletContextListener {
 
-    public static final String USERS_PROPERTIES = "users.properties";
+    private static final String USERS_PROPERTIES = "users.properties";
 
     public void contextInitialized(ServletContextEvent sce) {
-        Map<String, String> users = new HashMap<String, String>();;
+        setupUsers(sce);
+        setupSnakeGames(sce);
+    }
+
+    private void setupSnakeGames(ServletContextEvent sce) {
+        ServletContext context = sce.getServletContext();
+        synchronized (context) {
+            Games games = new Games();
+            context.setAttribute("games", games);
+        }
+    }
+
+    private void setupUsers(ServletContextEvent sce) {
+        Map<String, String> users = new HashMap<>();
         synchronized (sce.getServletContext()){
             sce.getServletContext().setAttribute("users", users);
         }

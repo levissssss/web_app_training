@@ -1,6 +1,5 @@
 package com.epam.webbasics;
 
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 public class LoginServlet extends HttpServlet {
@@ -37,7 +35,11 @@ public class LoginServlet extends HttpServlet {
         if (users.containsKey(userName) && users.get(userName).equals(password)){
             req.getSession().setAttribute("invalid", "false");
             req.getSession().setAttribute("username", userName);
-            resp.sendRedirect(req.getParameter("req"));
+            if (req.getParameter("req").equals("/login")) {
+                resp.sendRedirect("index.jsp");
+            } else {
+                resp.sendRedirect(req.getParameter("req"));
+            }
         }else {
             req.getSession().setAttribute("invalid", "true");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
